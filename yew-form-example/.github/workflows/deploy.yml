@@ -1,0 +1,36 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Or your default branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Install Trunk
+        run: cargo install --locked trunk
+
+      - name: Build
+        working-directory: ./yew-form-example # Ensure this is the correct path to your project
+        run: trunk build --release --public-url "${{ github.event.repository.name }}" # Adjust public-url if needed
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./yew-form-example/dist # Ensure this is the correct path to your build output
+          # cname: your-custom-domain.com # Uncomment if you have a custom domain
