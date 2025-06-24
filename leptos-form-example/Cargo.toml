@@ -1,0 +1,30 @@
+[package]
+name = "leptos-form-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+leptos = { version = "0.6", features = ["csr", "nightly"] } # Using csr for client-side rendering
+console_error_panic_hook = "0.1"
+wasm-bindgen = "0.2"
+
+[profile.release]
+opt-level = 'z' # Optimize for size.
+lto = true
+codegen-units = 1
+panic = "abort"
+
+# Leptos specific metadata for cargo-leptos build tool
+[package.metadata.leptos]
+# The name used by wasm-bindgen/cargo-leptos for the JS/WASM files
+output-name = "leptos_form_example"
+# The source Leptos app index.html file relative to project root
+index-file = "index.html"
+# The source CSS file relative to project root
+style-file = "style.css"
+# The site root folder is where cargo-leptos generates the static site.
+# Defaults to "target/site" if not set, which is fine.
+# site-root = "target/site"
+# The site-root relative folder where all compiled output (JS, WASM and CSS) is written
+# Defaults to "pkg" if not set, which is fine.
+# site-pkg-dir = "pkg"
