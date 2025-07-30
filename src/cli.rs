@@ -1,7 +1,7 @@
 use super::calculator::Coord;
 use super::calculator::calculate_chunk_corners;
 
-pub fn print_chunk_corners(pos: Coord) {
+pub fn print_chunk_corners(pos: &Coord) {
     let corners = calculate_chunk_corners(pos);
     println!("Chunk contains coordinates (x, y, z):");
     for corner in corners {

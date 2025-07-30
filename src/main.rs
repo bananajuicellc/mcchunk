@@ -48,5 +48,5 @@ fn parse_args(mut args: std::env::Args) -> calculator::Coord {
 fn main() {
     let args = std::env::args();
     let pos = parse_args(args);
-    cli::print_chunk_corners(pos);
+    cli::print_chunk_corners(&pos);
 }
